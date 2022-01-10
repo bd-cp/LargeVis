@@ -17,6 +17,7 @@ parser.add_argument("--no-axis", "-n", help="hide axis", action="store_true")
 parser.add_argument("--legend", "-s", help="show legend", action="store_true")
 args = parser.parse_args()
 
+plt.figure(figsize=(10, 10))
 clusters = {}
 if args.clusters != "":
     with open(args.clusters) as f:
@@ -45,7 +46,7 @@ colors = plt.cm.tab10(np.linspace(0, 1, len(positions_by_cluster)))
 for color, cluster in zip(colors, sorted(positions_by_cluster.keys())):
     x = [t[0] for t in positions_by_cluster[cluster]]
     y = [t[1] for t in positions_by_cluster[cluster]]
-    plt.plot(x, y, ".", color=color, markersize=1, label=cluster)
+    plt.plot(x, y, ".", color=color, markersize=0.1, label=cluster)
 
 
 for node in lables:
@@ -66,4 +67,4 @@ if args.legend:
     plt.legend()
 
 plt.gca().set_aspect("equal", adjustable="box")
-plt.savefig(args.output, dpi=500)
+plt.savefig(args.output, dpi=600)
